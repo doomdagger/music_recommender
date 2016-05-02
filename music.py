@@ -24,10 +24,10 @@ quiet_logs(sc)
 
 print "Initialized successfully, loading the dataset..."
 # Actual code goes here.
-basePath = 'data/advanced_analytics'
-datasetFolder = 'audioscrobbler/user_artist_data.txt'
-artistDataFolder = 'audioscrobbler/artist_data.txt'
-artistAliasFolder = 'audioscrobbler/artist_alias.txt'
+basePath = 'audio_data'
+datasetFolder = 'user_artist_data.txt'
+artistDataFolder = 'artist_data.txt'
+artistAliasFolder = 'artist_alias.txt'
 datasetPath = os.path.join(basePath, datasetFolder)
 artistDataPath = os.path.join(basePath, artistDataFolder)
 artistAliasPath = os.path.join(basePath, artistAliasFolder)
@@ -114,7 +114,7 @@ trainData.cache()
 #   time but may produce a better factorization.
 # lambda = 0.01
 #   A standard overfitting parameter. Higher values resist overfitting, but values that
-#   are too high hurt the factorization’s accuracy.
+#   are too high hurt the factorization's accuracy.
 # alpha = 1.0
 #   Controls the relative weight of observed versus unobserved user-product interactions
 #   in the factorization.
