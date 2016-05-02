@@ -1,4 +1,4 @@
-__author__ = 'Andrey Mironoff'
+__author__ = 'He Li(hl2918), Qi Wang(qw2197), Haoxiang Xu(hx2185), Xin Yang(xy2290)'
 execfile('Init.py')
 
 import os
@@ -257,7 +257,3 @@ def runGridSearch(rankRange, lambdaRange, alphaRange):
 evaluations = runGridSearch(rankRange=[10, 50], lambdaRange=[1.0, 0.0001], alphaRange=[1.0, 40.0])
 
 sorted(list(evaluations), key=lambda x: x[1])
-
-
-
-
