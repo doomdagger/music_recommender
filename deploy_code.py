@@ -1,13 +1,13 @@
 # data preparation
 
-rawUserArtistData = sc.textFile("audio_data/user_artist_data.txt")
+rawUserArtistData = sc.textFile("s3://aws-logs-523930296417-us-west-2/audio_data/user_artist_data.txt")
 
 userIDStats = rawUserArtistData.map(lambda x: float(x.split(' ')[0])).stats()
 itemIDStats = rawUserArtistData.map(lambda x: float(x.split(' ')[1])).stats()
 print userIDStats
 print itemIDStats
 
-rawArtistData = sc.textFile("audio_data/artist_data.txt")
+rawArtistData = sc.textFile("s3://aws-logs-523930296417-us-west-2/audio_data/artist_data.txt")
 
 def artist_parser(elem):
     parts = elem.split('\t')
@@ -21,7 +21,7 @@ def artist_parser(elem):
 
 artistByID = rawArtistData.flatMap(artist_parser)
 
-rawArtistAlias = sc.textFile("audio_data/artist_alias.txt")
+rawArtistAlias = sc.textFile("s3://aws-logs-523930296417-us-west-2/audio_data/artist_alias.txt")
 
 def artist_alias_parser(elem):
     parts = elem.split('\t')
