@@ -1,3 +1,12 @@
+from pyspark import SparkContext
+from pyspark import SparkConf
+
+# Setup context
+conf = SparkConf().setMaster("local").setAppName("hw3_part2")
+
+# create context
+sc = SparkContext(conf=conf)
+
 # data preparation
 
 rawUserArtistData = sc.textFile("s3://aws-logs-523930296417-us-west-2/audio_data/user_artist_data.txt")
