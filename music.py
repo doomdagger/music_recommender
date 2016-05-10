@@ -24,7 +24,7 @@ quiet_logs(sc)
 
 print "Initialized successfully, loading the dataset..."
 # Actual code goes here.
-basePath = 's3://aws-logs-523930296417-us-west-2/audio_data'
+basePath = 's3://aws-logs-151918190592-us-east-1/audio_data'
 datasetFolder = 'user_artist_data.txt'
 artistDataFolder = 'artist_data.txt'
 artistAliasFolder = 'artist_alias.txt'
