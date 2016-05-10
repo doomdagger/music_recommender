@@ -2,7 +2,7 @@ from pyspark import SparkContext
 from pyspark import SparkConf
 
 template_str = 'Step #{num}, {msg}'
-base_path = 's3://aws-logs-523930296417-us-west-2/audio_data/'
+base_path = 's3://aws-logs-151918190592-us-east-1/audio_data/'
 partition_num = 2
 
 print template_str.format(num=0, msg='Setup the context')
