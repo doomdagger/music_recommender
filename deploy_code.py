@@ -1,11 +1,17 @@
 from pyspark import SparkContext
 from pyspark import SparkConf
 
+template_str = 'Step #{num}, {msg}'
+
+print template_str.format(num=0, msg='Setup the context')
+
 # Setup context
 conf = SparkConf().setMaster("local").setAppName("hw3_part2")
 
 # create context
 sc = SparkContext(conf=conf)
+
+print template_str.format(num=1, msg='Prepare all the data')
 
 # data preparation
 
@@ -47,6 +53,8 @@ artistAlias = rawArtistAlias.flatMap(artist_alias_parser).collectAsMap()
 badID, goodID = artistAlias.items()[0]
 print str(artistByID.lookup(badID)[0]) + " -> " + str(artistByID.lookup(goodID)[0])
 
+print template_str.format(num=2, msg='build the data for modeling')
+
 # data modeling
 
 from pyspark.mllib.recommendation import *
@@ -64,9 +72,14 @@ def build_rating(x):
 
 trainData = rawUserArtistData.map(build_rating).cache()
 
+print template_str.format(num=3, msg='train the data to get the model')
+
 model = ALS.trainImplicit(trainData, 10, iterations=5, lambda_=0.01, alpha=1.0)
 
 trainData.unpersist()
+
+print template_str.format(num=4, msg='recommend music for user with id 2093760')
+
 
 userID = 2093760
 recommendations = model.call("recommendProducts", userID, 10)
