@@ -2,6 +2,8 @@ from pyspark import SparkContext
 from pyspark import SparkConf
 
 template_str = 'Step #{num}, {msg}'
+base_path = 's3://aws-logs-523930296417-us-west-2/audio_data/'
+partition_num = 2
 
 print template_str.format(num=0, msg='Setup the context')
 
@@ -15,14 +17,15 @@ print template_str.format(num=1, msg='Prepare all the data')
 
 # data preparation
 
-rawUserArtistData = sc.textFile("s3://aws-logs-523930296417-us-west-2/audio_data/user_artist_data.txt")
+rawUserArtistData = sc.textFile(base_path + "user_artist_data.txt", partition_num)
+rawUserArtistData.cache()
 
 userIDStats = rawUserArtistData.map(lambda x: float(x.split(' ')[0])).stats()
 itemIDStats = rawUserArtistData.map(lambda x: float(x.split(' ')[1])).stats()
 print userIDStats
 print itemIDStats
 
-rawArtistData = sc.textFile("s3://aws-logs-523930296417-us-west-2/audio_data/artist_data.txt")
+rawArtistData = sc.textFile(base_path + "artist_data.txt")
 
 def artist_parser(elem):
     parts = elem.split('\t')
@@ -35,8 +38,9 @@ def artist_parser(elem):
             return []
 
 artistByID = rawArtistData.flatMap(artist_parser)
+artistByID.cache()
 
-rawArtistAlias = sc.textFile("s3://aws-logs-523930296417-us-west-2/audio_data/artist_alias.txt")
+rawArtistAlias = sc.textFile(base_path + "artist_alias.txt")
 
 def artist_alias_parser(elem):
     parts = elem.split('\t')
@@ -70,7 +74,8 @@ def build_rating(x):
         finalArtistID = artistID
     return Rating(userID, finalArtistID, count)
 
-trainData = rawUserArtistData.map(build_rating).cache()
+trainData = rawUserArtistData.map(build_rating)
+trainData.cache()
 
 print template_str.format(num=3, msg='train the data to get the model')
 
