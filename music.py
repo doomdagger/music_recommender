@@ -1,5 +1,5 @@
 __author__ = 'He Li(hl2918), Qi Wang(qw2197), Haoxiang Xu(hx2185), Xin Yang(xy2290)'
-execfile('Init.py')
+# execfile('Init.py')
 
 import os
 import os.path
@@ -7,7 +7,7 @@ import os.path
 from pyspark import SparkContext
 from pyspark import SparkConf
 
-os.chdir("/home/vagrant/")
+# os.chdir("/home/vagrant/")
 
 def quiet_logs( sc ):
   logger = sc._jvm.org.apache.log4j
@@ -24,7 +24,7 @@ quiet_logs(sc)
 
 print "Initialized successfully, loading the dataset..."
 # Actual code goes here.
-basePath = 'audio_data'
+basePath = 's3://aws-logs-523930296417-us-west-2/audio_data'
 datasetFolder = 'user_artist_data.txt'
 artistDataFolder = 'artist_data.txt'
 artistAliasFolder = 'artist_alias.txt'
